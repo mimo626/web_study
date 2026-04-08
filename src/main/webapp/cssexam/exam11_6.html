@@ -32,5 +32,9 @@
 	<footer>
 		<h3>홈페이지 정보(바닥 글)</h3>
 	</footer>
+	<script>
+		const kordayname = ["일", "월", "화", "수", "목", "금", "토"];
+		document.getElementsByTagName("mark")[0].textContent = kordayname[new Date().getDay()]+"요일";
+	</script>
 </body>
 </html>
