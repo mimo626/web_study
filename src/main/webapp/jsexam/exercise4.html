@@ -3,8 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<style>
+		body > h1 {
+			color: blue;
+			text-shadow: 5px 5px 5px pink;
+		}
+		
+	  hr ~ h1 {
+	  	color: green;
+		text-shadow: 5px 5px 5px yellow;
+	  }
+	</style>
 </head>
 <body>
-
+	<h1>자바스크립트로 구현하는 구구단</h1>
+	<hr>
+	<script>
+		let input;
+		let num;
+		while(true){
+			input = window.prompt("1부터 9 사이의 숫자 입력: ");
+			num = Number(input);
+			if(num >=1 && num <= 9) {
+				break;
+			}
+		}		
+		document.writeln("<h1>"+num + " 단입니다.</h1><hr>");
+		for(let i =1; i<= 9; i++){
+			document.writeln("<h2>"+ num + " x " + i + " = " + num*i + "</h2>");
+		}
+	</script>
 </body>
 </html>
