@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 실습(7)</title>
+</head>
+<body>
+    <script src="util.js"></script>
+    <script>
+        function getKorDay(y, m, d) {
+            // 유효성 검사 (숫자가 아니거나 0 이하인 경우 차단)
+            if (isNaN(y) || isNaN(m) || isNaN(d) || y <= 0 || m <= 0 || d <= 0) {
+                return undefined; 
+            }
+
+            const date = new Date(y, m - 1, d);
+            
+            // 유효하지 않은 날짜 객체 생성 방어 (예: 2월 30일 등)
+            if (isNaN(date.getTime())) {
+                return undefined;
+            }
+
+            // switch문 대신 배열 인덱스 활용 (실무 권장)
+            const week = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+            return week[date.getDay()];
+        }
+
+        const year = Number(window.prompt("년을 입력하세요: "));
+        const month = Number(window.prompt("월을 입력하세요: "));
+        const day = Number(window.prompt("일을 입력하세요: "));
+    
+        const result = getKorDay(year, month, day);
+
+        if (result === undefined) {
+            writeColor("결과 없음", "h1", "red");
+        } else {
+            writeColor(`${year}년 ${month}월 ${day}일은 ${result}입니다`, "h1", "blue");
+        }
+    </script>
+</body>
+</html>
