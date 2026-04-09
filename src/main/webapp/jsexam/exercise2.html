@@ -8,15 +8,15 @@
 <body>
 	<h1 style = "color: blue;">자바스크립트 실습(2)</h1>
 	<hr>
-	<h2></h2>
 	<script>
-		var start = Math.floor(Math.random()*10 + 1);
-		var end = Math.floor(Math.random()*10 + 11);
-		var sum = 0;
+		const start = Math.floor(Math.random()*10 + 1);
+		const end = Math.floor(Math.random()*10 + 11);
+		let sum = 0;
 		for(let i = start; i<=end; i++){
 			sum += i;
 		}
-		document.getElementsByTagName("h2")[0].textContent = start + " 부터 " + end + " 까지의 합은 " + sum + " 입니다.";
+		document.write("<h2>"+start + " 부터 " + end + " 까지의 합은 " + sum + " 입니다.</h2>");
+		// document.getElementsByTagName("h2")[0].textContent = start + " 부터 " + end + " 까지의 합은 " + sum + " 입니다.";
 	</script>
 
 </body>

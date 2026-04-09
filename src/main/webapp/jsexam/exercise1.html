@@ -8,11 +8,10 @@
 <body>
 	<h1>자바스크립트 첫 번째 실습</h1>
 	<hr>
-	<h2></h2>
 	<script>
-		var name = window.prompt("이름을 입력하세요..");
-		document.getElementsByTagName("h2")[0].textContent = "(4) 어디에 출력될까?";
-		document.getElementsByTagName("h2")[0].textContent = "이름은 " + name + " 입니다.";
+		let name = window.prompt("이름을 입력하세요..");
+		document.write("<h2>이름은 " + name + " 입니다.</h2>");
+		// document.getElementsByTagName("h2")[0].textContent = "이름은 " + name + " 입니다.";
 		console.log("입력 데이터 : " + name);
 	</script>
 </body>
