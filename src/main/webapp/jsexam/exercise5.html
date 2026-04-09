@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 실습(5)</title>
+</head>
+<body>
+    <h1 style="color:blue">자바스크립트 실습(5)</h1>
+    <script src="util.js"></script>
+    <script>
+        function sum(num) {
+            // 아무 값도 전달되지 않은 상태(undefined)를 명확히 체크
+            // !Boolean()이나 !num을 쓰면 값이 0일 때도 조건에 걸
+            if (num === undefined) return;
+            
+            let total = 0; // 내장 객체/함수명과 겹치지 않게 변수명 변경 (sum -> total)
+            for (let i = 1; i <= num; i++) {
+                total += i;
+            }
+            return total;
+        }
+        
+        for (let i = 0; i < 5; i++) {
+            let randomNum = Math.floor(Math.random() * 6);
+            let result;
+
+            if (randomNum === 0) {
+                result = sum();
+            } else {
+                result = sum(randomNum); 
+            }
+
+            if (result !== undefined) { // 함수 결과에 따라서도 조건 분류해서 출력 
+                write("호출 결과값 : " + result, "h2");
+            } else {
+                write("결과값이 없어요!!", "h3");
+            }
+        }
+    </script>
+</body>
+</html>
