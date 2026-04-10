@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 실습(8)</title>
+</head>
+<body>
+<script src="util.js"></script>
+<script>
+	function calc(...arg){
+		if(arg === undefined) return 0;
+		
+		let sum = 0;
+		for(let e of arg){
+			if(e == null || e == "" || e == " " || isNaN(e) ) return "숫자만 전달하세요";
+			sum += Number(e);
+		}
+		return sum;
+	}
+	
+	write(calc(), "h3");
+	write(`null: ${calc(null)}`, "h3");
+	write(`undefined: ${calc(undefined)}`, "h3");
+	write(`빈 문자열: ${calc("")}`, "h3");
+	write(`공백: ${calc(" ")}`, "h3");
+	write(calc(10, 20, '30'), "h3");
+	write(calc(10, '가나다', 20), "h3");
+	write(calc(1,2,3,4,5), "h3");
+</script>
+</body>
+</html>
