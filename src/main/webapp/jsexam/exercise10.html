@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script src="util.js"></script>
+<script>
+   function printObject(p){
+	   if(typeof p !== 'object') return;
+	   writeColor(p.msg, p.tag, p.color);
+   } 
+   
+   const obj1 = {
+		  tag: "h2",
+		  color: "blue",
+		  msg: "파란색!"
+   };
+   const obj2 = {
+			  tag: "h3",
+			  color: "yellow",
+			  msg: "노란색!"
+	   };
+   const obj3 = {
+			  tag: "h2",
+			  color: "red",
+			  msg: "빨강색!"
+	   };
+   const obj4 = {
+			  tag: "h3",
+			  color: "green",
+			  msg: "초록색!"
+	   };
+   const obj5 = {
+			  tag: "h2",
+			  color: "black",
+			  msg: "검정색!"
+	   };
+   printObject(obj1);
+   printObject(obj2);
+   printObject(obj3);
+   printObject(obj4);
+   printObject(obj5);
+</script>
+</body>
+</html>
