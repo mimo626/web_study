@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>배경 핑크 & 가운데 리락쿠마 폴더</title>
+    <style>
+        body {
+            /* 1. 배경 색을 연한 핑크색으로 설정 */
+            background-color: #FFB6C1; /* LightPink 색상 */
+            
+            /* 2. 캔버스를 가운데 배치하기 위한 Flexbox 설정 */
+            display: flex;
+            justify-content: center; /* 가로 가운데 정렬 */
+            align-items: center;    /* 세로 가운데 정렬 */
+            min-height: 100vh;      /* 화면 전체 높이 차지 */
+            margin: 0;
+        }
+        canvas {
+            border: 2px solid #fff; /* 캔버스 경계선 (흰색) */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 그림자 효과 */
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="rilakkumaCanvas" width="600" height="600"></canvas>
+
+    <script>
+        // 캔버스 요소와 2D 그리기 컨텍스트 가져오기
+        const canvas = document.getElementById('rilakkumaCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // 전체 캔버스 배경색 칠하기 (연한 베이지/크림색)
+        ctx.fillStyle = '#FEF4D5'; // 크림색
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // 1. 폴더 모양 그리기
+        const folderWidth = 400;
+        const folderHeight = 300;
+        const tabWidth = 150;
+        const tabHeight = 60;
+        const radius = 20; // 폴더와 탭의 모서리 둥글기
+
+        ctx.fillStyle = '#FEF1C7'; // 폴더 본체 크림색 (미세하게 다르게)
+
+        // 1-1. 폴더 탭 (상단)
+        ctx.beginPath();
+        ctx.moveTo(radius, tabHeight);
+        ctx.arcTo(0, tabHeight, 0, tabHeight - radius, radius);
+        ctx.lineTo(0, radius);
+        ctx.arcTo(0, 0, radius, 0, radius);
+        ctx.lineTo(tabWidth - radius, 0);
+        ctx.arcTo(tabWidth, 0, tabWidth, radius, radius);
+        ctx.lineTo(tabWidth, tabHeight);
+        ctx.closePath();
+        ctx.fill();
+
+        // 1-2. 폴더 본체 (하단)
+        ctx.fillStyle = '#FEF1C7'; // 폴더 본체 크림색 (탭과 동일하게)
+        ctx.beginPath();
+        ctx.moveTo(radius, tabHeight);
+        ctx.lineTo(folderWidth - radius, tabHeight);
+        ctx.arcTo(folderWidth, tabHeight, folderWidth, tabHeight + radius, radius);
+        ctx.lineTo(folderWidth, tabHeight + folderHeight - radius);
+        ctx.arcTo(folderWidth, tabHeight + folderHeight, folderWidth - radius, tabHeight + folderHeight, radius);
+        ctx.lineTo(radius, tabHeight + folderHeight);
+        ctx.arcTo(0, tabHeight + folderHeight, 0, tabHeight + folderHeight - radius, radius);
+        ctx.lineTo(0, tabHeight + radius);
+        ctx.arcTo(0, tabHeight, radius, tabHeight, radius);
+        ctx.closePath();
+        ctx.fill();
+
+        // 2. 리락쿠마 얼굴 그리기
+
+        // 2-1. 눈 (어두운 갈색 원 2개)
+        ctx.fillStyle = '#4B3621'; // 어두운 갈색
+        const eyeRadius = 25;
+        // 왼쪽 눈
+        ctx.beginPath();
+        ctx.arc(folderWidth * 0.3, tabHeight + folderHeight * 0.45, eyeRadius, 0, Math.PI * 2);
+        ctx.fill();
+        // 오른쪽 눈
+        ctx.beginPath();
+        ctx.arc(folderWidth * 0.7, tabHeight + folderHeight * 0.45, eyeRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 2-2. 입 주변 흰색 영역 (중앙 타원형)
+        ctx.fillStyle = '#FFFFFF'; // 흰색
+        const whiteAreaWidth = 140;
+        const whiteAreaHeight = 90;
+        ctx.beginPath();
+        // 타원 그리기 (cx, cy, radiusX, radiusY, rotation, startAngle, endAngle)
+        ctx.ellipse(folderWidth * 0.5, tabHeight + folderHeight * 0.6, whiteAreaWidth / 2, whiteAreaHeight / 2, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 2-3. 코 (흰색 영역 중앙 어두운 갈색 원)
+        ctx.fillStyle = '#4B3621'; // 어두운 갈색
+        const noseRadius = 15;
+        ctx.beginPath();
+        ctx.arc(folderWidth * 0.5, tabHeight + folderHeight * 0.58, noseRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 2-4. 입 (코 아래 'Y' 자 모양의 갈색 선)
+        ctx.strokeStyle = '#4B3621'; // 어두운 갈색
+        ctx.lineWidth = 6;
+        ctx.lineCap = 'round'; // 선 끝을 둥글게
+
+        const mouthCenterY = tabHeight + folderHeight * 0.6 + noseRadius; // 코 바로 아래
+        const mouthWidth = 35;
+        const mouthHeight = 35;
+
+        // 중앙 세로선
+        ctx.beginPath();
+        ctx.moveTo(folderWidth * 0.5, tabHeight + folderHeight * 0.58 + noseRadius);
+        ctx.lineTo(folderWidth * 0.5, mouthCenterY + 10);
+        ctx.stroke();
+
+        // 왼쪽 입꼬리
+        ctx.beginPath();
+        ctx.moveTo(folderWidth * 0.5, mouthCenterY);
+        ctx.lineTo(folderWidth * 0.5 - mouthWidth / 2, mouthCenterY + mouthHeight);
+        ctx.stroke();
+
+        // 오른쪽 입꼬리
+        ctx.beginPath();
+        ctx.moveTo(folderWidth * 0.5, mouthCenterY);
+        ctx.lineTo(folderWidth * 0.5 + mouthWidth / 2, mouthCenterY + mouthHeight);
+        ctx.stroke();
+
+        // 2-5. 볼 (양쪽 눈 아래 연한 분홍색 타원)
+        ctx.fillStyle = 'rgba(255, 182, 193, 0.7)'; // 연한 분홍색, 약간의 투명도
+        const cheekWidth = 60;
+        const cheekHeight = 35;
+        // 왼쪽 볼
+        ctx.beginPath();
+        ctx.ellipse(folderWidth * 0.25, tabHeight + folderHeight * 0.65, cheekWidth / 2, cheekHeight / 2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        // 오른쪽 볼
+        ctx.beginPath();
+        ctx.ellipse(folderWidth * 0.75, tabHeight + folderHeight * 0.65, cheekWidth / 2, cheekHeight / 2, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+    </script>
+</body>
+</html>
