@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 실습(9)</title>
+</head>
+<body>
+<script src="util.js"></script>
+<script>
+	let array = [];
+	
+	while (true) {
+	    let input = window.prompt("데이터를 입력해 주세요(숫자, 문자열 상관 없음): ");
+	    
+	    if (input === null)  break;
+	    else if(input.trim() === "") array.push("공백");
+	    else array.push(input);
+	}
+	
+	let selectFn = Math.floor(Math.random()*10 + 1);
+	console.log("추출된 난수: " + selectFn);
+	
+	var alertResult = function(isSuccess){
+		window.alert(isSuccess ? "처리 성공" : "처리 실패");
+		return;
+	}
+	
+	if(selectFn === 1 || selectFn === 4 || selectFn === 6){
+		alertResult(apply(array, printH1));
+	}
+	else if(selectFn === 3 || selectFn === 5 || selectFn === 7){
+		alertResult(apply(array, printH4));
+	} 
+	else if(selectFn === 8 || selectFn === 9){
+		alertResult(apply("ㅋㅋ", printH1));
+	}
+	else{
+		alertResult(apply(array));
+	}
+
+	function printH1(content){
+		write(content, "h1");
+	}
+	function printH4(content){
+		write(content, "h4");
+	}
+	function apply(arr, fn){
+		if(Array.isArray(arr) && typeof fn =='function'){
+			for(let e of arr){
+				fn(e);
+			}
+			return true;
+		}
+		else {
+			console.log("아규먼트 오류");
+			return false;
+		}
+	}
+</script>
+
+</body>
+</html>
