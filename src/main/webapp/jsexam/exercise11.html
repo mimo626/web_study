@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script src="util.js"></script>
+<script>
+ function DayInfo(name, year, month, day){
+	 this.name = name;
+	 this.year = year;
+	 this.month = month;
+	 this.day = day; 
+	 
+	 DayInfo.prototype.getMonthInfo = function(){
+		 return `${this.name}님은 ${this.month}월에 태어났어요.`;
+	 }
+	 DayInfo.prototype.getKorDay = function(){
+		 // 문자열의 년도-월-일로 하면 month-1하지 않아도 됨
+		 const date = new Date(`${this.year}-${this.month}-${this.day}`);
+		  const week = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+		  const weekDay  = week[date.getDay()];
+		  return`${this.name}님은 ${weekDay}에 태어났어요.`;
+	 }
+ }
+ 
+ let student1 = new DayInfo("김영관", 2000, 1, 1);
+ let student2 = new DayInfo("이동규", 1996, 11, 26);
+ let student3 = new DayInfo("강민주", 2002, 6, 26);
+ let student4 = new DayInfo("모수환", 1998, 11, 17);
+ 
+let students = [student1, student2, student3, student4];
+let colors = ['red', 'blue', 'green', 'gray'];
+
+for(let i in students){
+	const student = students[i];
+	writeColor(student.getMonthInfo(student.name, student.year, student.month, student.day), "h3", colors[i]);
+	writeColor(student.getKorDay(student.name, student.year, student.month, student.day), "h3", colors[i]);
+	hr();
+}
+ 
+</script>
+</body>
+</html>
