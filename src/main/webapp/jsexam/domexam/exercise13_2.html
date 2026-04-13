@@ -8,7 +8,7 @@
 	<h1>이벤트 모델-인라인</h1>
 	<hr>
 	<div>
-		<button id = "red">빨강색</button>
+		<button id = "red" >빨강색</button>
 		<button  id = "blue">파랑색</button>
 		<button  id = "yellow">노란색</button>
 	</div>
@@ -25,6 +25,9 @@
 		}
 		
  		const buttons = document.querySelectorAll("button");
+ 		// 태그명 뿐만 아니라 button태그에 btn 클래스 선택자를 부여해 버튼 그룹을 가져올 수도 있음
+ 		// const buttons = document.querySelectorAll(".button"); 
+
 
  		buttons.forEach(function(btn) {
 			console.log(btn);
@@ -33,6 +36,9 @@
 				console.log(btn);
 		    }
 		}); 
+ 		
+		function changeColor(color){
+			document.querySelector("h3").style.color =color ;
 		
  /* 버튼들을 감싸고 있는 부모 요소(<div>)에 이벤트를 하나만 지정해서 
  	 이벤트를 위임(버튼 수가 더 많아졌을 때 효율적임)
@@ -42,9 +48,7 @@
 		        changeColor(event.target.id);
 		    }
 		}  */
-		
-		function changeColor(color){
-			document.querySelector("h3").style.color =color ;
+
 		}
 	</script>
 </body>
