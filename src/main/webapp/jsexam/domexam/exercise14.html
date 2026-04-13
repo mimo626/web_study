@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>날씨 이벤트</title>
+<style>
+	@font-face {
+	    font-family: 'RomanticGumi';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2') format('woff2');
+	    font-weight: normal;
+	    font-display: swap;
+	}
+	body {
+		font-family: 'RomanticGumi';
+	}
+
+	h1 {
+		color: white;
+		text-shadow: 5px 5px 3px black,
+		10px 10px 8px purple,
+		-5px -5px 5px purple;
+		text-align:center;
+		font-size: 80px;
+	}
+	.weather-btn-group {
+		display:flex;
+		justify-content: center;
+		align-items:center;
+		margin: 30px auto;
+		width: 20%;
+		padding: 20px;
+		border:1px solid purple;
+		border-radius: 20px;
+		box-shadow:8px 8px 0px purple;
+	}
+	button{
+		font-family: inherit;
+		color: white;
+		background-color: black;
+		padding: 10px 20px;
+		margin: 30px 20px;
+		font-size: 24px;
+	}
+	
+	img {
+		display: none;
+		width: 400px;
+		height: 300px;
+		margin: 30px auto;
+	}
+	
+</style>
+</head>
+<body>
+	<h1>이벤트 처리 실습</h1>
+	<hr>
+	<div class="weather-btn-group">
+		<button data-weather="sun">맑음</button>
+		<button data-weather="cloud">흐림</button>
+		<button data-weather="rain">비</button>
+	</div>
+	<hr>
+	<img></img>
+	<script>
+		document.querySelector(".weather-btn-group").addEventListener('click', function(e) {
+		    if(e.target.tagName === "BUTTON") {
+		    	let weather = e.target.getAttribute("data-weather");
+		    	let imgTag =  document.querySelector("img");
+		    	
+		    	imgTag.src = "../../images/" + weather + ".png";
+		    	imgTag.style.display = "block";
+		     }}, true
+		 );
+	</script>
+</body>
+</html>
