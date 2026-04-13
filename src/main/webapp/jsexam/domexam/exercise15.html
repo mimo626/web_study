@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>구구단</title>
+<style>
+	@font-face {
+	    font-family: 'OngleipParkDahyeon';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2') format('woff2');
+	    font-weight: normal;
+	    font-display: swap;
+	}
+	body {
+		text-align: center;
+		font-family: 'OngleipParkDahyeon';
+	}
+	h1{
+		font-size: 60px;
+	}
+	.gugudan-group{
+		display:flex;
+		justify-content: center;
+		align-items:center;
+		margin: 30px auto;
+		
+	}
+	button {
+		font-family: inherit;
+		background-color: white;
+		border: 2px solid skyblue;
+		border-radius: 4px;
+		padding: 10px 30px;
+		margin: 20px 10px;
+		font-size: 20px;
+	}
+	
+	output {
+		font-size: 24px;
+		color: white;
+		text-shadow: 2px 2px 3px blue,
+			3px 3px 6px skyblue, 
+			-3px -3px 6px skyblue;
+	}
+</style>
+</head>
+<body>
+	<h1>구구단</h1>
+	<div class="gugudan-group">
+		<button id="1">1단</button>
+		<button id="2">2단</button>
+		<button id="3">3단</button>
+		<button id="4">4단</button>
+		<button id="5">5단</button>
+		<button id="6">6단</button>
+		<button id="7">7단</button>
+		<button id="8">8단</button>
+		<button id="9">9단</button>
+	</div>
+	<output></output>
+	<script>
+		document.querySelector(".gugudan-group").addEventListener('click', function(e) {
+			let outputTag = document.querySelector("output");
+			if(outputTag.innerHTML){
+				outputTag.innerHTML = "";
+			} 
+		    if(e.target.tagName === "BUTTON") {
+		    	let dan = e.target.id;
+		    	for(let i = 1; i <= 9; i++){
+		    		outputTag.innerHTML += `<h3>${dan} X ${i} = ${dan*i}</h3>`;
+		    	}
+		    }
+		})
+		
+		document.querySelector("h1").addEventListener('click', function() {
+			location.href = "https://ko.wikipedia.org/wiki/구구단";
+		})
+	</script>
+</body>
+</html>
