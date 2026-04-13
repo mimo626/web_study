@@ -11,10 +11,11 @@
 <button id="b2" data-mycolor="blue">표준 이벤트 모델</button>
 <script>
 	function click_processing(e) {
-		window.alert(this);
-		window.alert(this.id);
-		window.alert(this.textContent);
-		window.alert(e.target);
+		window.alert("this: " + this);
+		window.alert("this.id: " + this.id);
+		window.alert("this.textContent: " + this.textContent);
+		window.alert("e: " + e);
+		window.alert("e: " + e.target);
 		window.alert(e.target.id);
 		window.alert(e.target.textContent);
 		let h1dom = document.getElementsByTagName("h1")[0];
