@@ -9,19 +9,20 @@
 		const num = Math.floor(Math.random()*3 + 1);
 		const isConfirm = window.prompt("이동하시겠습니까?");
 		
+		let link; 
+
 		if(isConfirm === null) {
-			window.open('/edu/first.html');
+			 link ="/edu/first.html";
 		} else {
-			let link; 
-			if(num == 1) {
+			if(num === 1) {
 				link = "https://www.daum.net/"
-			} else if(num == 2){
+			} else if(num === 2){
 				link = "https://www.naver.com/";
 			} else {
 				link = "https://www.google.com/?hl=ko";
 			}
-			location.href = link;
 		}
+		location.href = link;
 	</script>
 </body>
 </html>
