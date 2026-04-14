@@ -29,7 +29,7 @@ public class EmpSelectServlet extends HttpServlet {
 		String url = "jdbc:mysql://localhost:3306/edudb?characterEncoding=UTF-8&serverTimezone=UTC";
 		String user = "jdbctest";
 		String passwd = "jdbctest";
-		out.print("<h2>지원명단</h2><hr><ul>");
+		out.print("<h2>직원명단</h2><hr><ul>");
 		try (Connection conn = DriverManager.getConnection(url, user, passwd);
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("select ename, sal  from emp");){			
