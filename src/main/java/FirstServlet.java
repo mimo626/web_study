@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/FirstServlet") // http://localhost:8088/edu/FirstServlet?guest=강민주
+@WebServlet("/first") // http://localhost:8088/edu/first?guest=강민주
 public class FirstServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
