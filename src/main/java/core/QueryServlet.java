@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet( {"/queryget", "/querypost"} )
 public class QueryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		String userName = request.getParameter("guestName");
@@ -32,10 +32,6 @@ public class QueryServlet extends HttpServlet {
                 number+"이군요!</h2>");
 		out.print("<a href='"+request.getHeader("referer")+"'>입력화면으로 가기</a>");
 		out.close();
-	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		doGet(request, response);
 	}
 }
 
