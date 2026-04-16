@@ -13,11 +13,11 @@
 pageContext.setAttribute("msg", "PageContext 객체에 저장된 객체"); 
 request.setAttribute("msg", "HttpServletRequest 객체에 저장된 객체");
 session.setAttribute("msg", "HttpSession 객체에 저장된 객체");
-application.setAttribute("msg", "ServletContext 객체에 저장된 객체");
+application.setAttribute("msg", "Servletext 객체에 저장된 객체");
 %>
 pageScope 객체에서 추출 : ${ pageScope.msg }<br>
 requestScope 객체에서 추출 : ${ requestScope.msg }<br>
-sessionScope 객체에서 추출 : ${ sessionScope.msg }<br>
+sessionScope 객체에서 추출 : ${ sessiotConnScope.msg }<br>
 applicationScope 객체에서 추출 : ${ applicationScope.msg }<br>
 <hr>
 msg 추출 : ${msg}<br>
