@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	@font-face {
+    font-family: 'JejuStoneWall';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-EF@1.0/EF_jejudoldam.woff2') format('woff2');
+    font-weight: normal;
+    font-display: swap;
+	}
+	* {
+		font-family: 'JejuStoneWall';
+	}
+</style>
+</head>
+<body>
+	<h1>오늘의 날씨 정보</h1>
+	<hr>
+	<h2 id="temp"></h2>
+	<script>
+	window.addEventListener("load", function(){
+		setInterval(function() {
+			const h1Tag = document.querySelector("h1");
+			const randomHex = Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+		 	h1Tag.style.color = `#${randomHex}`;
+		}, 2000);
+	});
+	
+	window.addEventListener("load", function(){
+		const xhr = new XMLHttpRequest();
+		xhr.onload = function(event){
+			if(xhr.status === 200){
+	            try {
+	                const jsonObj = JSON.parse(xhr.responseText);
+	                const tempTag = document.querySelector("#temp");
+	                const temp = jsonObj.temp;
+	                
+	                const imgTag = document.createElement('img');
+                    imgTag.width=300;
+                    imgTag.height=300;
+                    imgTag.src = "../../" + jsonObj.img;
+                    imgTag.alt = "날씨 이미지";
+	        		document.body.appendChild(imgTag);    
+
+	                if(temp !== null && temp !== undefined && temp !== "") {
+	                    tempTag.textContent = `기온 : ${temp}도`;
+	                } else {
+	                    tempTag.textContent = "기온 : 정보 없음";
+	                }
+	            } catch (e) {
+	                console.error("JSON 파싱 에러:", e);
+	            }
+	        } else {
+	            console.error("서버 응답 오류:", xhr.status);
+	        }
+		}
+	    xhr.open('GET', 'content/weather.jsp', true);
+	    xhr.send(); 
+	})
+	</script>
+</body>
+</html>
