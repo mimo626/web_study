@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Promise 객체 테스트(1)</h1>
+<hr>
+<script type="module">
+import {orderCoffee} from "./src/coffee.js"; 
+
+// 주문 실행 (Promise 사용)
+console.log("--- 가게 문을 엽니다 ---");
+
+orderCoffee("둘리의 아메리카노")
+  .then((message) => {
+    // 성공 시 실행되는 곳
+    console.log(`[성공] ${message}`);
+  })
+  .catch((error) => {
+    // 실패 시 실행되는 곳
+    console.log(`[실패] ${error}`);
+  })
+  .finally(() => {
+    console.log("--- 둘리의 아메리카노 다음 주문을 기다립니다 ---");
+  });
+
+orderCoffee("도우너의 아메리카노")
+  .then((message) => {
+    // 성공 시 실행되는 곳
+    console.log(`[성공] ${message}`);
+  })
+  .catch((error) => {
+    // 실패 시 실행되는 곳
+    console.log(`[실패] ${error}`);
+  })
+  .finally(() => {
+    console.log("--- 도우너의 아메리카노 다음 주문을 기다립니다 ---");
+  });
+
+orderCoffee("또치의 아메리카노")
+  .then((message) => {
+    // 성공 시 실행되는 곳
+    console.log(`[성공] ${message}`);
+  })
+  .catch((error) => {
+    // 실패 시 실행되는 곳
+    console.log(`[실패] ${error}`);
+  })
+  .finally(() => {
+    console.log("--- 또치의 아메리카노 다음 주문을 기다립니다 ---");
+  });
+</script>
+</body>
+</html>

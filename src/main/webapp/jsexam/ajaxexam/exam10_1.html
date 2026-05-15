@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>Ajax테스트</title>
+</head>
+<body>
+	<h2>fetch()- async/await 함수 사용 - JSON응답</h2>
+	<hr>
+	<script>
+		// 1. 객체를 HTML에 출력하는 함수
+		function jsonToStr(obj) {
+			console.log(obj);
+			for ( let i in obj) {
+				document.body.innerHTML += `<h3>${obj[i]}</h3>`;
+			}
+		}
+
+		// 2. 데이터를 가져오는 비동기 함수 정의
+		async function fetchContent() {
+			try {
+				const response = await fetch('content/sample.json');
+
+				// 응답 상태 확인
+				if (!response.ok) {
+					throw new Error(`HTTP Error : ${response.status}`);
+				}
+
+				// JSON 파싱 대기
+				const obj = await response.json();
+
+				// 데이터 처리 함수 호출
+				jsonToStr(obj);
+
+			} catch (err) {
+				// 에러 핸들링
+				console.error("잡았다!! : " + err);
+			}
+		}
+
+		// 3. 함수 실행
+		fetchContent();
+	</script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
+  <style>
+        nav, section {
+            margin : 10px;
+        }
+  </style>
+  <title>Hello, world!</title>
+</head>
+<body>
+<header class="jumbotron text-center">
+  <h1>일별 박스 오피스</h1>
+  <p>영화관 입장권 통합 전산망 오픈  API 를 AJAX 기술로 활용합니다.</p>
+</header>
+<nav>
+  <button type="button" class="btn btn-outline-primary" onclick="displayMovieRanking(1)">1일전</button>
+  <button type="button" class="btn btn-outline-info" onclick="displayMovieRanking(2)">2일전</button>
+  <button type="button" class="btn btn-outline-success" onclick="displayMovieRanking(3)">3일전</button>
+</nav>
+<section>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">영화썸네일</th>
+      <th scope="col">영화명</th>
+      <th scope="col">해당일 관객수</th>
+      <th scope="col">누적 관객수</th>
+      <th scope="col">스크린수</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+
+<script>
+  function getFormatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}${month}${day}`;
+  }
+
+  async function displayMovieRanking(n) {
+    const today = new Date();
+    const d = today.getTime() - (n * 24 * 60 * 60 * 1000);
+    const targetday = new Date(d);
+    const targetDt = getFormatDate(targetday);
+    
+    const kobisUrl = `http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=75474bdfc6c0a4eb738939dd66c101b5&targetDt=${targetDt}`;
+    const dom = document.getElementsByTagName('tbody')[0];
+    dom.innerHTML = ""; // 데이터 로드 전 초기화
+
+    try {
+      // 1. 박스오피스 데이터 가져오기
+      const response = await fetch(kobisUrl);
+      const jsonObj = await response.json();
+      const dailyBoxOfficeList = jsonObj.boxOfficeResult.dailyBoxOfficeList;
+
+      // 2. 10위까지 반복하며 데이터 처리
+      for (let i = 0; i < 10; i++) {
+        const movie = dailyBoxOfficeList[i];
+        const movieNm = movie.movieNm;
+
+        // 3. 카카오 이미지 검색 API 호출
+        const imgResponse = await fetch(`https://dapi.kakao.com/v2/search/image?query=${encodeURIComponent(movieNm)}&sort=accuracy&page=1&size=1`, {
+          headers: {
+            "Authorization": "KakaoAK f613363f755c6ba58d1e8d2378c8523a"
+          }
+        });
+        const imgJson = await imgResponse.json();
+        
+        // 검색 결과가 없을 경우를 대비한 기본 이미지 처리
+        const thumbnailUrl = imgJson.documents.length > 0 
+                             ? imgJson.documents[0].thumbnail_url 
+                             : 'https://via.placeholder.com/50';
+
+        // 4. 화면에 렌더링
+        const content = `
+          <tr>
+            <td scope='row'><img src='${thumbnailUrl}' width='50'></td>
+            <td>${movieNm}</td>
+            <td>${Number(movie.audiCnt).toLocaleString()}</td>
+            <td>${Number(movie.audiAcc).toLocaleString()}</td>
+            <td>${movie.scrnCnt}</td>
+          </tr>`;
+        
+        dom.innerHTML += content;
+      }
+    } catch (error) {
+      console.error("데이터를 불러오는 중 오류가 발생했습니다:", error);
+    }
+  }
+</script>
+</body>
+</html>

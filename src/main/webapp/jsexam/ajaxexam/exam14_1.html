@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax테스트</title>
+	</head>
+<body>
+	<h2 onclick="getImage();">이 행을 클릭해요. Ajax로 이미지를 요청하고 출력해요....</h2>
+	<script>
+  		let imgname = 0;
+
+  		async function getImage() {
+    		// 이미지 번호 순환 (1~10)
+    		imgname = imgname === 10 ? 1 : imgname + 1;
+
+    		try {
+      			// 1. 이미지 데이터 요청
+      			const response = await fetch(`../../images/${imgname}.jpg`);
+
+      			// 2. 응답 상태 확인
+      			if (!response.ok) {
+        			throw new Error("이미지를 불러오는 중 오류가 발생했습니다.");
+      			}
+
+      			// 3. Blob 데이터로 변환 대기
+       			const actualBlob = await response.blob();
+
+      			// 4. 이미지 요소 생성 및 설정
+     			 const img = document.createElement('img');
+      			img.width = 100;
+      			img.height = 100;
+      
+      			// Blob URL 생성 (메모리 효율을 위해 유용함)
+     	 		img.src = URL.createObjectURL(actualBlob);
+      
+      			// 5. 화면에 추가
+      			document.body.appendChild(img);
+    		} catch (err) {
+      			console.error("잡았다!! : " + err.message);
+    		}
+  		}
+	</script>
+</body>
+</html>

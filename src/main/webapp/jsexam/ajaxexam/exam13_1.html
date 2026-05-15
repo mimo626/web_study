@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ECMAScript6</title>
+</head>
+<body>
+  <h1> AJAX 기술로 REST API  요청(CORS)</h1>
+  <hr>
+  <button onclick="getAll()">GET(ALL)</button>
+  <button onclick="getOne()">GET(One)</button>
+  <button onclick="postData()">POST</button>
+  <button onclick="deleteData()">DELETE</button>
+  <script>
+  	// AJAX 요청을 관리하는 객체
+  	const ajaxrequest = {
+    	async get(url) {
+      		const response = await fetch(url);
+      		return response;
+    	},
+    	async post(url, payload) {
+      		const response = await fetch(url, {
+        		method: 'POST',
+        		headers: { 'Content-Type': 'application/json' },
+        		body: JSON.stringify(payload)
+      		});
+      		return response;
+    	},
+    	async delete(url) {
+      		const response = await fetch(url, { method: 'DELETE' });
+      		return response;
+    	}
+  	}
+
+  	// 1. 전체 데이터 가져오기
+  	async function getAll() {
+    	try {
+      		const response = await ajaxrequest.get('http://localhost:9000/boards');
+      		if (!response.ok) throw new Error(`에러: ${response.statusText}`);
+      
+      		const boards = await response.json();
+      		console.log('전체 목록:', boards);
+    	} catch (err) {
+      		console.error('불러오기 실패:', err);
+    	}
+  	}
+
+  	// 2. 특정 데이터 가져오기
+  	async function getOne() {
+    	try {
+      		const response = await ajaxrequest.get('http://localhost:9000/boards/2');
+      		if (!response.ok) throw new Error(`에러: ${response.statusText}`);
+      
+      		const board = await response.json();
+      		console.log('상세 데이터:', board);
+    	} catch (err) {
+      		console.error('조회 실패:', err);
+    	}
+  	}
+
+  	// 3. 데이터 등록하기
+  	async function postData() {
+    	const newBoard = {
+      		boardNo: 5,
+      		title: '꽃잎 한 장처럼',
+      		content: '수도생활 50년, 좋은 삶과 관계를 위한 통찰',
+      		writer: '이해인',
+      		regDate: '2020-05-25T09:00'
+    	};
+
+    	try {
+      		const response = await ajaxrequest.post('http://localhost:9000/boards', newBoard);
+      		if (!response.ok) throw new Error(`에러: ${response.statusText}`);
+      
+      		const msg = await response.text();
+      		console.log('등록 성공:', msg);
+    	} catch (err) {
+      		console.error('등록 실패:', err);
+    	}
+  	}
+
+  	// 4. 데이터 삭제하기
+  	async function deleteData() {
+    	try {
+      		const response = await ajaxrequest.delete('http://localhost:9000/boards/5');
+      		if (!response.ok) throw new Error(`에러: ${response.statusText}`);
+      
+      		const msg = await response.text();
+      		console.log('삭제 성공:', msg);
+    	} catch (err) {
+      		console.error('삭제 실패:', err);
+    	}
+  	}
+	</script>
+</body>
+</html>

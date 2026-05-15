@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JSP test example</title>
+</head>
+<body>
+	<h1>RequestBody Test!!!!</h1>
+	<hr>
+	<h2 id="msg_area" ></h2>
+	<hr>
+	<h3>&lt;FORM&gt; 태그를 통한 요청</h3>
+	<form method="post" action="http://localhost:9000/rb1">
+		<input type="text" name="name" value="유니코"><br>
+		<input type="number" name="age" value="20"><br>
+		<input type="submit" value="전송">
+	</form>
+	<hr>
+	<h3>AJAX를 통한 요청</h3>
+	<button id="rb2" data-pname="둘리" data-page="10">데이터 전송 1</button>
+	<button id="rb3" data-pname="또치" data-page="11">데이터 전송 2</button>
+	<button id="rb4" data-pname="도우너" data-page="12">데이터 전송 3</button>
+	<script>
+  		const buttons = document.querySelectorAll("button");
+
+  		// async 키워드를 붙여 비동기 함수로 정의
+  		const postData = async (event) => {
+    		console.log("데이터 전송");
+
+    		// 전송할 데이터를 미리 준비
+    		const payload = {
+      			name: event.target.getAttribute("data-pname"),
+      			age: event.target.getAttribute("data-page")
+    		};
+
+    		try {
+      			// 1. fetch 요청 및 응답 대기
+      			const response = await fetch("http://localhost:9000/" + event.target.id, {
+        			method: 'POST', // 관례상 대문자 사용 권장
+        			headers: { 'Content-Type': 'application/json' },
+        			body: JSON.stringify(payload)
+      			});
+
+      			// 2. HTTP 상태 코드 확인 (필요 시)
+      			if (!response.ok) {
+        			throw new Error(`서버 응답 오류: ${response.status}`);
+      			}
+
+      			// 3. JSON 파싱 대기
+      			const data = await response.json();
+
+      			// 4. 결과 출력
+      			console.log('성공:', data);
+      			document.querySelector("#msg_area").textContent = `${data.name}:${data.age}`;
+    		} catch (error) {
+      			// 에러 발생 시 처리
+      			console.error('데이터 전송 실패:', error);
+    		}
+  		};
+
+  		buttons.forEach(elem => elem.addEventListener("click", postData));
+	</script>
+</body>
+</html>
+
+
+

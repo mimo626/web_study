@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>setTimeout() 비동기 처리 함수라서...</h1>
+<script>
+function work() {
+
+    console.log("작업 시작");
+
+    setTimeout(() => {
+        console.log("작업 완료");
+    }, 2000);
+
+    console.log("다음 작업");
+}
+work();
+</script>
+</body>
+</html>

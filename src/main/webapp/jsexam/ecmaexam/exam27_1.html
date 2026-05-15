@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Promise 객체 테스트(2)</h1>
+<hr>
+<h2>async/await 는 비동기 코드를 순서대로 실행되는 것처럼 보이게 해주는 문법이다.</h2>
+<h3>tPromise 의 then() 을 더 읽기 쉽고 편리하게 표현한 문법이다.</h3>
+<pre style="color:blue">
+fetch("/user")
+    .then(response => response.json())
+    .then(data => console.log(data));
+--->    
+const response = await fetch("/user");
+const data = await response.json();
+console.log(data);
+</pre>
+<hr>
+<script type="module">
+import {orderCoffee} from "./src/coffee.js"; 
+
+// 주문 실행 (Promise 사용)
+console.log("--- 가게 문을 엽니다 ---");
+
+// 주문을 처리하는 헬퍼 함수
+async function requestOrder(name) {
+  try {
+    const message = await orderCoffee(name);
+    console.log(`[성공] ${message}`);
+  } catch (error) {
+    console.log(`[실패] ${error}`);
+  } finally {
+    console.log(`--- ${name} 다음 주문을 기다립니다  ---`);
+  }
+}
+
+// 훨씬 간결해진 호출
+requestOrder("둘리의 아메리카노");
+requestOrder("도우너의 아메리카노");
+requestOrder("또치의 아메리카노");
+</script>
+</body>
+</html>
