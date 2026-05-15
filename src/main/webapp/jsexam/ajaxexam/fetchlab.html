@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Friend REST API 테스트</title>
+<style>
+    #result {
+        border: 2px solid #4CAF50;
+        background-color: #f9f9f9;
+        padding: 15px;      
+        margin-top: 10px;     
+        width: 400px;       
+        min-height: 100px;      
+        border-radius: 8px;     
+        white-space: pre-wrap;    
+        font-family: monospace;  
+    }
+</style>
+</head>
+<body>
+<h1>Friend REST API를 fetch기반 AJAX로 요청하기</h1>
+<h2>CORS 반영</h2>
+<hr>
+<button onclick="getAll()">모든 친구들</button>
+<button onclick="getOne()">X번 친구</button>
+<button onclick="postData()">친구 정보 저장</button>
+<button onclick="deleteData()">친구 정보 삭제</button>
+
+<div>
+	<h3>실행 결과:</h3>
+	<div id="result">아직 실행된 결과가 없습니다.</div>
+</div>
+
+<script>
+	const ajaxrequest = {
+			get(url){
+				return fetch(url);
+			},
+			getOne(url){
+				return fetch(url);
+			},
+			post(url, payload){
+				return fetch(url, {
+					method: 'POST',
+					headers: {'content-Type': 'application/json'},
+					body:JSON.stringify(payload)
+				});
+			},
+			delete(url){
+				return fetch(url,{
+					method: 'DELETE'
+				})
+			}
+	}
+	
+	function getAll(){
+		ajaxrequest.get("http://localhost:8089/friend")
+		.then(response => {
+			if(!response.ok) throw new Error(response.statusText);
+			return response.json();
+		})
+		.then(friends => {
+			console.log(friends);
+			document.getElementById("result").innerText = JSON.stringify(friends, null, 2);
+		})
+		.catch(err => {
+            console.log(err);
+            document.getElementById("result").innerText = "에러 발생: " + err.message;
+        });
+	}
+	
+	function getOne(){
+		ajaxrequest.get("http://localhost:8089/friend/104")
+		.then(response => {
+			if(!response.ok) throw new Error(response.statusText);
+			return response.json();
+		})		
+		.then(friend => {
+            console.log(friend);
+            document.getElementById("result").innerText = JSON.stringify(friend, null, 2);
+        })
+		.catch(err => {
+            console.log(err);
+            document.getElementById("result").innerText = "에러 발생: " + err.message;
+        });
+	}
+	
+	function postData(){
+		let fname = prompt("이름을 입력하세요:");
+		let fage = prompt("나이를 입력하세요:");		
+
+		ajaxrequest.post("http://localhost:8089/friend", {
+			fname: fname,
+			fage: fage
+		}).then(response => {
+			if(!response.ok) throw new Error(response.statusText);
+			return response.text();
+		})
+	      .then(msg => {
+            console.log(msg);
+            document.getElementById("result").innerText = msg;
+          })
+	      .catch(err => {
+            console.error(err);
+            document.getElementById("result").innerText = "에러 발생: " + err.message;
+          });
+	}
+
+    function deleteData() {
+		let id = prompt("삭제할 id를 입력하세요:");		
+
+        ajaxrequest.delete(`http://localhost:8089/friend/${id}`)
+        .then(response => {
+          if (!response.ok) 
+            throw new Error(response.statusText);
+         
+          return response.text();
+        })
+        .then(msg => {
+            console.log(msg);
+            document.getElementById("result").innerText = msg;
+        })
+        .catch(err => {
+            console.error(err);
+            document.getElementById("result").innerText = "에러 발생: " + err.message;
+        });
+      }
+</script>
+</body>
+</html>

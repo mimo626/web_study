@@ -28,4 +28,16 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/main/webapp/jsexam/ecmaexam/src/coffee.js</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/ECMAScript%EB%82%A8%EC%9D%80%EC%86%8C%EC%8A%A4/ecmaexam%EC%9D%98src%EC%97%90%EC%A0%80%EC%9E%A5/coffee.js</locationURI>
+		</link>
+		<link>
+			<name>src/main/webapp/jsexam/ecmaexam/src/random.js</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/ECMAScript%EB%82%A8%EC%9D%80%EC%86%8C%EC%8A%A4/ecmaexam%EC%9D%98src%EC%97%90%EC%A0%80%EC%9E%A5/random.js</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
